@@ -16,83 +16,11 @@ import java.util.LinkedList;
  * @version 2022-11-11
  */
 class Graph<T extends Comparable<T>> implements GraphInterface<T> {
-//
-// public static void main(String[] args) {
-// Graph<String> grph = new Graph<String>();
-// grph.addVertex("1");
-// grph.addVertex("2");
-// grph.addVertex("5");
-// System.out.println(grph.getNumberOfEdges());
-// System.out.println(grph.getNumberOfVertices());
-// grph.addEdge("1", "2");
-// System.out.println(grph.getNumberOfEdges());
-// System.out.println(grph.addEdge("1", "2"));
-// System.out.println(grph.getNumberOfEdges());
-// grph.addEdge("2", "5");
-// System.out.println(grph.getNumberOfEdges());
-// System.out.println(grph.addEdge("1", "10"));
-// System.out.println(grph.getNumberOfEdges());
-// System.out.println(grph.addEdge("10", "2"));
-// System.out.println(grph.getNumberOfEdges());
-// grph.addEdge("1", "5");
-// System.out.println(grph.getNumberOfEdges());
-//
-// grph.removeVertex("1");
-// System.out.println(grph.getNumberOfEdges());
-// grph.removeVertex("2");
-// System.out.println(grph.getNumberOfEdges());
-// System.out.println(grph.getNumberOfVertices());
-// grph.removeVertex("5");
-// System.out.println(grph.getNumberOfVertices());
-//
-// grph.clear();
-// System.out.println(grph.getBreadthFirstTraversal("1"));
-// System.out.println(grph.getBreadthFirstTraversal("10"));
-//
-// grph.addVertex("A");
-// grph.addVertex("B");
-// grph.addVertex("C");
-// grph.addVertex("D");
-// grph.addVertex("E");
-// grph.addVertex("F");
-// grph.addVertex("G");
-// grph.addVertex("H");
-// grph.addVertex("I");
-// grph.addVertex("Unreachable");
-//
-//
-// grph.addEdge("A", "B");
-// grph.addEdge("A", "D");
-// grph.addEdge("A", "E");
-// grph.addEdge("B", "C");
-// grph.addEdge("B", "E");
-// grph.addEdge("C", "F");
-// grph.addEdge("D", "G");
-// grph.addEdge("E", "H");
-// grph.addEdge("E", "F");
-// grph.addEdge("F", "I");
-// grph.addEdge("F", "H");
-// grph.addEdge("G", "H");
-// grph.addEdge("H", "I");
-//
-// System.out.println(grph.getNumberOfEdges());
-// System.out.println(grph.getNumberOfVertices());
-//
-//
-// Stack<String> emptyStack = new Stack<String>();
-//
-// int dist = grph.getShortestPath("A", "H", emptyStack);
-// System.out.println(dist);
-// System.out.println(emptyStack.toString());
-//
-// Queue<String> traversalOrder =
-// grph.getBreadthFirstTraversal("A");
-// System.out.println(traversalOrder.toString());
-// }
+
     /** A dictionary of key (Vertex label), value (Vertex) pair */
     protected HashMap<T, Vertex<T>> vertices;
     /** Number of edges */
-    protected int numEdges;
+    private int numEdges;
 
     /**
      * Initializes the graph with an empty graph
