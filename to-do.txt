@@ -1,0 +1,11 @@
+Ask if we are allowed to use java List class "size()" method for
+implementing "getNumberOfNeighbors()" method and "iterator()" 
+method to implement "getNeighborIterator()" method of vertex. 
+
+Ask if we can connect an edge with start and endVertex already 
+connected by another edge with a different weight. 
+
+Considering this is an undirected graph, "connect" method
+of vertex class should add edge from endVertex to thisVertex 
+as well as thisVertex to endVertex. I have implemented connect
+methods this way.  
