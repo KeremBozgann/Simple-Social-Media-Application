@@ -11,8 +11,81 @@ import java.util.ArrayList;
  * @author Kerem Bozgan kerembozgan
  * @version 2022-11-11
  */
-class Vertex<T extends Comparable<T>> implements VertexInterface<T> {
+class Vertex<T> implements VertexInterface<T> {
+    public static void main(String[] args) { 
+        Profile us1 = new Profile();
+        us1.setName("kerem", "bozgan");
+        us1.setStatus("my name is Kerem Bozgan");
+        
+        Profile us2 = new Profile();
+        us2.setName("ahmet", "demir");
+        us2.setStatus("my name is Ahmet Demir");
+        
+        Profile us3 = new Profile();
+        us3.setName("muhammed", "ali");
+        us3.setStatus("my name is Muhammed Ali");
+        
+        Vertex<Profile> vertex1 = new Vertex<Profile>(us1); 
+        Vertex<Profile> vertex2 = new Vertex<Profile>(us2); 
+        Vertex<Profile> vertex3 = new Vertex<Profile>(us3);
+        
+        System.out.println( vertex1.connect(vertex1, 10));
+        System.out.println( vertex2.connect(vertex1, 20));
+        System.out.println( vertex2.connect(vertex1, 30));
+        System.out.println( vertex2.connect(vertex1, 20));
+        System.out.println( vertex1.connect(vertex3, 30));
+        System.out.println( vertex3.connect(vertex1, 30));
+        System.out.println( vertex1.connect(vertex2, 100));
+        System.out.println( );
+        Iterator<VertexInterface<Profile>> itr = 
+            vertex1.getNeighborIterator();
+        while(itr.hasNext()) {
+            Profile friend = itr.next().getLabel();
+            System.out.println(friend);
+        }
+        System.out.println( );
+        System.out.println( vertex1.disconnect(vertex1, 10));
+        System.out.println( vertex2.disconnect(vertex1, 40));
+        System.out.println( );
 
+        
+        System.out.println("Vertex weighted disconnect:" );
+        System.out.println( vertex1.disconnect(vertex3, 10));
+        System.out.println( vertex1.disconnect(vertex3, 30));
+        System.out.println( vertex1.disconnect(vertex2, 100));
+        System.out.println( vertex2.disconnect(vertex1, 50));
+        System.out.println( vertex2.disconnect(vertex1, 20));
+        System.out.println( vertex2.disconnect(vertex1, 30));
+        System.out.println( vertex3.disconnect(vertex1, 30));
+        System.out.println( );
+        
+        System.out.println("Vertex unweighted connect:" );
+        System.out.println( vertex1.connect(vertex1));
+        System.out.println( vertex1.connect(vertex2));
+        System.out.println( vertex1.connect(vertex3));
+        System.out.println( vertex3.connect(vertex2));
+        System.out.println("Vertex unweighted disconnect:" );
+        System.out.println( vertex1.disconnect(vertex1));
+        System.out.println( vertex2.disconnect(vertex1));
+//        System.out.println( vertex1.disconnect(vertex2));
+//        System.out.println( vertex1.disconnect(vertex3));
+        System.out.println( vertex3.disconnect(vertex2));
+        itr = 
+            vertex1.getNeighborIterator();
+        while(itr.hasNext()) {
+            Profile friend = itr.next().getLabel();
+            System.out.println(friend);
+        }
+        System.out.println( );
+        System.out.println( vertex2.hasNeighbor());
+        System.out.println( vertex1.getUnvisitedNeighbor().getLabel());
+        vertex2.visit();
+        System.out.println( );
+        System.out.println( vertex1.getUnvisitedNeighbor().getLabel());
+
+        
+        
+    }
     /**
      * Represents the label of the vertex.
      */
@@ -128,27 +201,27 @@ class Vertex<T extends Comparable<T>> implements VertexInterface<T> {
         return visited;
     }
 
-
-    /**
-     * Returns true if label of the two vertices are the same,
-     * false otherwise
-     * 
-     * @param vertex1
-     *            first vertex
-     * @param vertex2
-     *            second vertex
-     * @return true if both have same labels
-     */
-    private boolean equals(
-        VertexInterface<T> vertex1,
-        VertexInterface<T> vertex2) {
-        if (vertex1.getLabel().compareTo(vertex2.getLabel()) == 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
+//
+//    /**
+//     * Returns true if label of the two vertices are the same,
+//     * false otherwise
+//     * 
+//     * @param vertex1
+//     *            first vertex
+//     * @param vertex2
+//     *            second vertex
+//     * @return true if both have same labels
+//     */
+//    private boolean equals(
+//        VertexInterface<T> vertex1,
+//        VertexInterface<T> vertex2) {
+//        if (vertex1.getLabel().compareTo(vertex2.getLabel()) == 0) {
+//            return true;
+//        }
+//        else {
+//            return false;
+//        }
+//    }
 
 
     /**
@@ -164,7 +237,7 @@ class Vertex<T extends Comparable<T>> implements VertexInterface<T> {
     public boolean connect(VertexInterface<T> endVertex) {
 
         // First, check if labels are the same.
-        if (equals(this, endVertex)) {
+        if (this.equals(endVertex)) {
             return false;
         }
 
@@ -173,7 +246,7 @@ class Vertex<T extends Comparable<T>> implements VertexInterface<T> {
         Edge currentEdge;
         while (itr.hasNext()) {
             currentEdge = itr.next();
-            if (equals(endVertex, currentEdge.vertex)) {
+            if (endVertex.equals(currentEdge.vertex)) {
                 return false;
             }
         }
@@ -201,7 +274,7 @@ class Vertex<T extends Comparable<T>> implements VertexInterface<T> {
     public boolean connect(VertexInterface<T> endVertex, double edgeWeight) {
 
         // First, check if labels are the same.
-        if (equals(this, endVertex)) {
+        if (this.equals( endVertex)) {
             return false;
         }
 
@@ -211,14 +284,14 @@ class Vertex<T extends Comparable<T>> implements VertexInterface<T> {
         Edge currentEdge;
         while (itr.hasNext()) {
             currentEdge = itr.next();
-            if (equals(endVertex, currentEdge.vertex)
+            if (endVertex.equals( currentEdge.vertex)
                 && edgeWeight == currentEdge.weight) {
                 return false;
             }
         }
 
         // If not, add the edge to list.
-        Edge newEdge = new Edge(endVertex);
+        Edge newEdge = new Edge(endVertex, edgeWeight);
         edgeList.add(newEdge);
         return true;
 
@@ -239,7 +312,7 @@ class Vertex<T extends Comparable<T>> implements VertexInterface<T> {
 
         for (int i = 0; i < edgeList.size(); i++) {
             currentEdge = edgeList.get(i);
-            if (equals(endVertex, currentEdge.vertex)) {
+            if (endVertex.equals( currentEdge.vertex)) {
                 edgeList.remove(i);
                 return true;
             }
@@ -263,7 +336,7 @@ class Vertex<T extends Comparable<T>> implements VertexInterface<T> {
 
         for (int i = 0; i < edgeList.size(); i++) {
             currentEdge = edgeList.get(i);
-            if (equals(endVertex, currentEdge.vertex)
+            if (endVertex.equals( currentEdge.vertex)
                 && edgeWeight == currentEdge.weight) {
                 edgeList.remove(i);
                 return true;

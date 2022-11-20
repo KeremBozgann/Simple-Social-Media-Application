@@ -37,6 +37,75 @@ import java.util.Stack;
 
 class VTConnect {
 
+  public static void main(String[] args) {
+  VTConnect sn = new VTConnect();
+  Profile  us1 = new Profile ("Kerem"
+   , "My name is Kerem."); 
+  Profile us2 = new Profile("Ahmet"
+, "My name is Ahmet."); 
+  Profile  us3 = new Profile();
+  us3.setName("Kerem", "Bozgan");
+  us3.setStatus("My name is Kerem Bozgan.");
+
+  sn.addUser(us1);
+  sn.addUser(us2);
+  sn.addUser(us3);
+  
+  System.out.println(sn.createFriendship(us1, us3));
+  sn.createFriendship(us2, us3);
+  sn.createFriendship(us2, us1);
+  System.out.println(sn.createFriendship(us3, us2));
+  sn.removeFriendship(us1, us2);
+  System.out.println(sn.hasFriendship(us2, us1));
+  sn.traverse(us1);
+  
+  us1.id = -1;
+  us2.id = -1;
+  us3.id = -1;
+
+  
+  sn = new VTConnect();
+  Profile  A = new Profile ("A", ""); 
+  Profile  B = new Profile ("B", ""); 
+  Profile  C = new Profile ("C", ""); 
+  Profile  D = new Profile ("D", ""); 
+  Profile  E = new Profile ("E", ""); 
+  Profile  F = new Profile ("F", ""); 
+  Profile  G = new Profile ("G", ""); 
+  Profile  H = new Profile ("H", ""); 
+  Profile  I = new Profile ("I", "");
+  
+  
+  sn.addUser(A);
+
+  sn.addUser(B);
+  sn.addUser(C);
+  sn.addUser(D);
+  sn.addUser(E);
+  sn.addUser(F);
+  sn.addUser(G);
+  sn.addUser(H);
+  sn.addUser(I);
+
+  sn.createFriendship(A, B); sn.createFriendship(A, D); sn.createFriendship(A, E);
+  sn.createFriendship(B, A);   sn.createFriendship(B, E);  sn.createFriendship(B, C);
+  sn.createFriendship(D, A); sn.createFriendship(D, G);
+  sn.createFriendship(E, F);sn.createFriendship(E, H);
+  sn.createFriendship(C, F);
+  sn.createFriendship(G, H);
+  sn.createFriendship(F, I); sn.createFriendship(F, H);
+  sn.createFriendship(H,I);
+
+  sn.traverse(A);
+  
+  System.out.println(sn.exists(A));
+  List<Profile> suggestionList = sn.friendSuggestion(C);
+  System.out.println(suggestionList.toString());
+
+  System.out.println( sn.friendshipDistance(A, us2));
+  System.out.println( sn.friendshipDistance(A, I));
+}
+    
     /** Dictionary of (id, vertex) pairs */
     private Graph<Integer> grph;
     /** Dictionary of (id, profile) pairs */

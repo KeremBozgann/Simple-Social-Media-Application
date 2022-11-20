@@ -12,7 +12,35 @@ public class Driver2
 		System.out.println("Creating profiles and the network.");
 		VTConnect m = new VTConnect();
 
-
+//		Profile profile1  = new Profile();
+//		profile1.setName("John", "Doe");
+//		profile1.setStatus("My name is John.");
+//		
+//	      Profile profile2  = new Profile();
+//	        profile2.setName("Jane", "Doe");
+//	        profile2.setStatus("My name is Jane.");
+//	        
+//	        Profile profile3  = new Profile();
+//	        profile3.setName("John", "Smith");
+//	        profile3.setStatus("My name is John.");
+//	        
+//	           Profile profile4  = new Profile();
+//	            profile4.setName("Jane", "Smith");
+//	            profile4.setStatus("My name is Jane.");
+//	            
+//	       m.addUser(profile1);
+//	       m.addUser(profile2);
+//	       m.addUser(profile3);
+//	       m.addUser(profile4);
+//	       
+//	       m.createFriendship(profile1, profile2);
+//	       m.createFriendship(profile2, profile3);
+//	       m.createFriendship(profile1, profile4);
+//	       m.createFriendship(profile4, profile2);
+//	       m.createFriendship(profile3, profile4);
+//	       
+//	       m.traverse(profile1);
+	       
  
 		
 		Profile malcom = new Profile();

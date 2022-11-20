@@ -15,8 +15,98 @@ import java.util.LinkedList;
  * @author Kerem Bozgan kerembozgan
  * @version 2022-11-11
  */
-class Graph<T extends Comparable<T>> implements GraphInterface<T> {
-
+class Graph<T> implements GraphInterface<T> {
+    
+  public static void main(String[] args) {
+  Graph<Profile> grph = new Graph<Profile>();
+  Profile p1 = new Profile("p1", "Hello I am p1."); 
+  Profile p2 = new Profile("p2", "Hello I am p2."); 
+  Profile p5 = new Profile("p5", "Hello I am p5.");
+  Profile p10 = new Profile("p10", "Hello I am p10.");
+  
+  grph.addVertex(p1);
+  grph.addVertex(p2);
+  grph.addVertex(p5);
+  System.out.println(grph.getNumberOfEdges());
+  System.out.println(grph.getNumberOfVertices());
+  grph.addEdge(p1, p2);
+  System.out.println(grph.getNumberOfEdges());
+  System.out.println(grph.addEdge(p1, p2));
+  System.out.println(grph.getNumberOfEdges());
+  grph.addEdge(p2,p5);
+  System.out.println(grph.getNumberOfEdges());
+  System.out.println(grph.addEdge(p1, p10));
+  System.out.println(grph.getNumberOfEdges());
+  System.out.println(grph.addEdge(p10, p2));
+  System.out.println(grph.getNumberOfEdges());
+  grph.addEdge(p1, p5);
+  System.out.println(grph.getNumberOfEdges());
+ 
+  grph.removeVertex(p1);
+  System.out.println(grph.getNumberOfEdges());
+  grph.removeVertex(p2);
+  System.out.println(grph.getNumberOfEdges());
+  System.out.println(grph.getNumberOfVertices());
+  grph.removeVertex(p5);
+  System.out.println(grph.getNumberOfVertices());
+ 
+  grph.clear();
+  System.out.println(grph.getBreadthFirstTraversal(p1));
+  System.out.println(grph.getBreadthFirstTraversal(p10));
+ 
+ 
+  Profile A = new Profile("A", "Hello I am A."); 
+  Profile B = new Profile("B", "Hello I am B."); 
+  Profile C = new Profile("C", "Hello I am C.");
+  Profile D= new Profile("D", "Hello I am D.");
+  Profile E= new Profile("E", "Hello I am E.");
+  Profile F= new Profile("F", "Hello I am F.");
+  Profile G= new Profile("G", "Hello I am G.");
+  Profile H= new Profile("H", "Hello I am H.");
+  Profile I= new Profile("I", "Hello I am I.");
+  Profile unreach= new Profile("Unreachable", "Hello I am Unreachable.");
+  
+  grph.addVertex(A);
+  grph.addVertex(B);
+  grph.addVertex(C);
+  grph.addVertex(D);
+  grph.addVertex(E);
+  grph.addVertex(F);
+  grph.addVertex(G);
+  grph.addVertex(H);
+  grph.addVertex(I);
+  grph.addVertex(unreach);
+ 
+ 
+  grph.addEdge(A, B);
+  grph.addEdge(A, D);
+  grph.addEdge(A, E);
+  grph.addEdge(B, C);
+  grph.addEdge(B, E);
+  grph.addEdge(C, F);
+  grph.addEdge(D, G);
+  grph.addEdge(E, H);
+  grph.addEdge(E, F);
+  grph.addEdge(F, I);
+  grph.addEdge(F, H);
+  grph.addEdge(G, H);
+  grph.addEdge(H, I);
+ 
+  System.out.println(grph.getNumberOfEdges());
+  System.out.println(grph.getNumberOfVertices());
+ 
+ 
+  Stack<Profile> emptyStack = new Stack<Profile>();
+ 
+  int dist = grph.getShortestPath(A, I, emptyStack);
+  System.out.println(dist);
+  System.out.println(emptyStack.toString());
+ 
+  Queue<Profile> traversalOrder =
+  grph.getBreadthFirstTraversal(A);
+  System.out.println(traversalOrder.toString());
+  }
+    
     /** A dictionary of key (Vertex label), value (Vertex) pair */
     protected HashMap<T, Vertex<T>> vertices;
     /** Number of edges */
@@ -255,7 +345,7 @@ class Graph<T extends Comparable<T>> implements GraphInterface<T> {
 
         while (itr.hasNext()) {
             neighbor = itr.next();
-            if (neighbor.getLabel().compareTo(targetVertex.getLabel()) == 0) {
+            if (neighbor.equals(targetVertex)) {
                 return true;
             }
         }
@@ -416,8 +506,8 @@ class Graph<T extends Comparable<T>> implements GraphInterface<T> {
                     nextNeighbor.setPredecessor(frontVertex);
                     vertexQueue.add(nextNeighbor);
                 }
-                if (nextNeighbor.getLabel().compareTo(destVertex
-                    .getLabel()) == 0) {
+                if (nextNeighbor.equals(destVertex ) ) 
+                  {
                     done = true;
                 }
             }
